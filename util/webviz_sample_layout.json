@@ -1,0 +1,160 @@
+{
+  "layout": {
+    "direction": "row",
+    "first": {
+      "first": {
+        "first": "DiagnosticStatusPanel!4l3mdnj",
+        "second": {
+          "first": "DiagnosticStatusPanel!udozfx",
+          "second": "Plot!37h3el3",
+          "direction": "column",
+          "splitPercentage": 26.88
+        },
+        "direction": "column",
+        "splitPercentage": 20.986093552465235
+      },
+      "second": "3D Panel!2v1fzuc",
+      "direction": "row",
+      "splitPercentage": 45.38239538239538
+    },
+    "second": {
+      "first": "ImageViewPanel!1nopgpr",
+      "second": "ImageViewPanel!t22pit",
+      "direction": "column"
+    },
+    "splitPercentage": 72.1875
+  },
+  "savedProps": {
+    "DiagnosticStatusPanel!4l3mdnj": {
+      "topicToRender": "/diagnostics",
+      "collapsedSections": [],
+      "selectedHardwareId": "035322250236",
+      "selectedName": "realsense/camera/realsense2_camera_manager_color: Frequency Status"
+    },
+    "DiagnosticStatusPanel!udozfx": {
+      "topicToRender": "/diagnostics",
+      "collapsedSections": [],
+      "selectedHardwareId": "035322250236",
+      "selectedName": "realsense/camera/realsense2_camera_manager_depth: Frequency Status"
+    },
+    "Plot!37h3el3": {
+      "paths": [
+        {
+          "value": "/realsense/camera/accel/sample.linear_acceleration.x",
+          "enabled": true,
+          "timestampMethod": "receiveTime"
+        },
+        {
+          "value": "/realsense/camera/accel/sample.linear_acceleration.y",
+          "enabled": true,
+          "timestampMethod": "receiveTime"
+        },
+        {
+          "value": "/realsense/camera/accel/sample.linear_acceleration.z",
+          "enabled": true,
+          "timestampMethod": "receiveTime"
+        }
+      ],
+      "minYValue": "",
+      "maxYValue": "",
+      "showLegend": true,
+      "xAxisVal": "timestamp",
+      "followingViewWidth": "50"
+    },
+    "3D Panel!2v1fzuc": {
+      "checkedKeys": [
+        "name:Topics",
+        "t:/cloud_nodelet/parameter_descriptions",
+        "t:/cloud_nodelet/parameter_updates",
+        "t:/diagnostics",
+        "t:/diagnostics_agg",
+        "t:/diagnostics_toplevel_state",
+        "t:/gps/fix",
+        "t:/gps/rtkfix",
+        "t:/gps/time",
+        "t:/image_raw",
+        "t:/obs1/gps/fix",
+        "t:/obs1/gps/rtkfix",
+        "t:/obs1/gps/time",
+        "t:/radar/range",
+        "t:/radar/tracks",
+        "t:/rosout",
+        "t:/tf",
+        "t:/velodyne_nodelet_manager/bond",
+        "t:/velodyne_packets",
+        "t:/velodyne_points",
+        "t:/rplidar/scan",
+        "ns:/tf:laser"
+      ],
+      "expandedKeys": [
+        "name:Topics",
+        "t:/tf"
+      ],
+      "followTf": "laser",
+      "cameraState": {
+        "targetOffset": [
+          -0.17700311121555823,
+          0.3574672833466133,
+          0
+        ],
+        "distance": 10.834735440518655,
+        "perspective": true,
+        "phi": 0,
+        "thetaOffset": -0.013308689317369346,
+        "fovy": 0.7853981633974483,
+        "near": 0.01,
+        "far": 5000
+      },
+      "modifiedNamespaceTopics": [
+        "/tf"
+      ],
+      "pinTopics": false,
+      "settingsByKey": {
+        "t:/velodyne_points": {
+          "colorField": "ring"
+        }
+      },
+      "autoSyncCameraState": false,
+      "autoTextBackgroundColor": true,
+      "followOrientation": false
+    },
+    "ImageViewPanel!1nopgpr": {
+      "cameraTopic": "/realsense/camera/color/image_raw",
+      "enabledMarkerTopics": [],
+      "customMarkerTopicOptions": [],
+      "scale": 0.2,
+      "transformMarkers": true,
+      "synchronize": false,
+      "mode": "fit",
+      "zoomPercentage": 82.08333333333333,
+      "offset": [
+        3.3333333333333144,
+        -0.5
+      ]
+    },
+    "ImageViewPanel!t22pit": {
+      "cameraTopic": "/realsense/camera/depth/image_rect_raw",
+      "enabledMarkerTopics": [],
+      "customMarkerTopicOptions": [],
+      "scale": 0.2,
+      "transformMarkers": false,
+      "synchronize": false,
+      "mode": "fit",
+      "zoomPercentage": 82.08333333333333,
+      "offset": [
+        3.3333333333333144,
+        -0.5
+      ]
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "linkedGlobalVariables": [],
+  "playbackConfig": {
+    "speed": 0.2,
+    "messageOrder": "receiveTime",
+    "timeDisplayMethod": "ROS"
+  },
+  "version": 16,
+  "skipSettingLocalStorage": false
+}

@@ -1,0 +1,23 @@
+<launch>
+
+    <group ns="rosbridge">
+        <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+            <arg name="port" value="9090"/>
+        </include>
+    </group>
+
+    <group ns="realsense">
+        <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+            <arg name="enable_accel" value="true"/>
+            <arg name="enable_gyro" value="true"/>
+            <arg name="enable_pointcloud" value="true"/>
+        </include>
+    </group>
+
+    <group ns="rplidar">
+        <include file="$(find rplidar_ros)/launch/rplidar.launch">
+            <param name="serial_port" type="string" value="/dev/ttyUSB0"/>
+        </include>
+    </group>
+
+</launch>
