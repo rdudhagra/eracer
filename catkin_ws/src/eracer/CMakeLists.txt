@@ -8,7 +8,8 @@ project(eracer)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  rplidar_ros
+  # rplidar_ros
+  rosbridge_server
   realsense2_camera
   roscpp
   rospy
