@@ -20,4 +20,8 @@
         </include>
     </group>
 
+    <group ns="gps">
+        <include file="$(find gps)/launch/gps.launch" />
+    </group>
+
 </launch>

@@ -3,19 +3,14 @@
     "direction": "row",
     "first": {
       "first": {
-        "first": "DiagnosticStatusPanel!4l3mdnj",
-        "second": {
-          "first": "DiagnosticStatusPanel!udozfx",
-          "second": "Plot!37h3el3",
-          "direction": "column",
-          "splitPercentage": 26.88
-        },
+        "first": "Plot!2rmqs6y",
+        "second": "Plot!37h3el3",
         "direction": "column",
-        "splitPercentage": 20.986093552465235
+        "splitPercentage": 62.958280657395704
       },
       "second": "3D Panel!2v1fzuc",
       "direction": "row",
-      "splitPercentage": 45.38239538239538
+      "splitPercentage": 38.38383838383839
     },
     "second": {
       "first": "ImageViewPanel!1nopgpr",
@@ -25,17 +20,22 @@
     "splitPercentage": 72.1875
   },
   "savedProps": {
-    "DiagnosticStatusPanel!4l3mdnj": {
-      "topicToRender": "/diagnostics",
-      "collapsedSections": [],
-      "selectedHardwareId": "035322250236",
-      "selectedName": "realsense/camera/realsense2_camera_manager_color: Frequency Status"
-    },
-    "DiagnosticStatusPanel!udozfx": {
-      "topicToRender": "/diagnostics",
-      "collapsedSections": [],
-      "selectedHardwareId": "035322250236",
-      "selectedName": "realsense/camera/realsense2_camera_manager_depth: Frequency Status"
+    "Plot!2rmqs6y": {
+      "paths": [
+        {
+          "value": "/gps/gps_data.latitude",
+          "enabled": true,
+          "timestampMethod": "receiveTime"
+        }
+      ],
+      "minYValue": "",
+      "maxYValue": "",
+      "showLegend": true,
+      "xAxisVal": "custom",
+      "xAxisPath": {
+        "value": "/gps/gps_data.longitude",
+        "enabled": true
+      }
     },
     "Plot!37h3el3": {
       "paths": [
@@ -126,10 +126,10 @@
       "transformMarkers": true,
       "synchronize": false,
       "mode": "fit",
-      "zoomPercentage": 82.08333333333333,
+      "zoomPercentage": 77.5,
       "offset": [
-        3.3333333333333144,
-        -0.5
+        0,
+        20.5
       ]
     },
     "ImageViewPanel!t22pit": {
@@ -140,10 +140,10 @@
       "transformMarkers": false,
       "synchronize": false,
       "mode": "fit",
-      "zoomPercentage": 82.08333333333333,
+      "zoomPercentage": 77.5,
       "offset": [
-        3.3333333333333144,
-        -0.5
+        0,
+        20.5
       ]
     }
   },

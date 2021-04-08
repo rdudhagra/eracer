@@ -9,12 +9,13 @@ An open-source self-driving rc car based on ROS and the NVIDIA Jetson Xavier
 2. Install dependencies:
     - ROS melodic or newer
     - NodeJS >=10.0.0 <12.0.0
+    - [pynmea2](https://github.com/Knio/pynmea2) for parsing GPS data
     - [librealsense](https://github.com/IntelRealSense/librealsense) 2.0 or newer—install with GPU/Cuda support for best performance, install pyrealsense as well if you want python support
 3. `cd` into the `eracer` folder, run `bash init.bash` to setup.
 
 ## Running
 1. `cd` into the `eracer` folder, run `bash run.bash`, Ctrl+C to stop.
-2. Go to `http://[jetson xavier ip]:8080/?rosbridge-websocket-url=ws://[jetson xavier ip]:9090`
+2. Go to `https://webviz.io/app/?rosbridge-websocket-url=ws://[jetson xavier ip]:9090`
 3. Import `util/webviz_sample_layout.json` to get started
 
 ## Credits
@@ -22,3 +23,4 @@ Built upon the work of these projects:
 - [@cruise-automation/webviz](https://github.com/cruise-automation/webviz) — debugging webui 
 - [@robopeak/rplidar_ros](https://github.com/robopeak/rplidar_ros) — ROS package for the RPLidar A1M8
 - [@IntelRealSense/librealsense](https://github.com/IntelRealSense/librealsense) — library for the Intel Realsense D455 camera
+- [@Knio/pynmea2](https://github.com/Knio/pynmea2) — python library for parsing NMEA 0183 strings

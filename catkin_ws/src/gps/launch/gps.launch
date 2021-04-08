@@ -1,0 +1,3 @@
+<launch>
+    <node name="gps" pkg="gps" type="read_gps.py" respawn="true"/>
+</launch>
