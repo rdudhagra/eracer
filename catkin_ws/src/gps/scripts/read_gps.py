@@ -12,11 +12,14 @@ ser = serial.Serial('/dev/ttyTHS0', 9600, timeout=1)
 sio = io.TextIOWrapper(io.BufferedReader(ser))
 
 def talker():
-    pub = rospy.Publisher('gps_data', NavSatFix)
+    pub = rospy.Publisher('gps_data', NavSatFix, queue_size=1)
     rospy.init_node('gps')
 
     msg = NavSatFix()
     msg.status = NavSatStatus(0, 0x1 | 0x2) # Unaugmented fix, GPS & GLONASS
+    msg.header.frame_id = "base_link"
+
+    rospy.loginfo("GPS node ready!")
 
     while not rospy.is_shutdown():
         try:
@@ -30,8 +33,6 @@ def talker():
                     msg.latitude = gpsmsg.latitude
                     msg.longitude = gpsmsg.longitude
                     msg.altitude = gpsmsg.altitude
-                    # Send msg on topic
-                    pub.publish(msg)
             
         except serial.SerialException as e:
             rospy.logerr('Device error: {}'.format(e))
@@ -45,7 +46,7 @@ def talker():
         msg.header.stamp = rospy.Time.now()
 
         pub.publish(msg)
-        rospy.sleep(0.001)
+        rospy.sleep(0.01)
 
 if __name__ == '__main__':
     try:

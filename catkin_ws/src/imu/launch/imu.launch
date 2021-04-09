@@ -1,0 +1,14 @@
+<launch>
+    <remap from="imu_raw_accel_gyro" to="imu/data_raw"/>
+    <remap from="imu_raw_mag" to="imu/mag"/>
+
+    <remap from="imu/data" to="data"/>
+
+    <node name="imu_raw" pkg="imu" type="read_imu.py" respawn="true" />
+    <!-- <include file="$(find imu_complementary_filter)/launch/complementary_filter.launch" >
+        <param name="use_mag" type="bool" value="true"/>
+    </include> -->
+    <include file="$(find imu_filter_madgwick)/launch/imu_filter_madgwick.launch" >
+        <param name="use_mag" type="bool" value="true"/>
+    </include>
+</launch>

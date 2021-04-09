@@ -2,26 +2,50 @@
 
     <group ns="rosbridge">
         <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
-            <arg name="port" value="9090"/>
+            <arg name="port" value="9090" />
         </include>
     </group>
 
     <group ns="realsense">
         <include file="$(find realsense2_camera)/launch/rs_camera.launch">
-            <arg name="enable_accel" value="true"/>
-            <arg name="enable_gyro" value="true"/>
-            <arg name="enable_pointcloud" value="true"/>
+            <arg name="enable_accel" value="true" />
+            <arg name="enable_gyro" value="true" />
+            <arg name="enable_pointcloud" value="true" />
         </include>
     </group>
 
     <group ns="rplidar">
         <include file="$(find rplidar_ros)/launch/rplidar.launch">
-            <param name="serial_port" type="string" value="/dev/ttyUSB0"/>
+            <param name="serial_port" type="string" value="/dev/ttyUSB0" />
         </include>
     </group>
 
     <group ns="gps">
         <include file="$(find gps)/launch/gps.launch" />
+    </group>
+
+    <group ns="imu">
+        <include file="$(find imu)/launch/imu.launch" />
+    </group>
+
+    <group ns="fusion">
+        <node pkg="robot_localization" type="ekf_localization_node" name="ekf_fusion_imu" clear_params="true">
+            <rosparam command="load" file="$(find eracer)/config/ekf_imu_config.yaml" />
+            <remap from="odometry/filtered" to="pose" />
+        </node>
+        <node pkg="robot_localization" type="navsat_transform_node" name="ekf_fusion_gps" respawn="true">
+
+            <param name="magnetic_declination_radians" value="0.244346" />
+            <param name="yaw_offset" value="-1.5708" />
+
+            <param name="broadcast_utm_transform" value="true" />
+            <param name="publish_filtered_gps" value="true" />
+
+            <remap from="imu/data" to="/imu/data" />
+            <remap from="gps/fix" to="/gps/gps_data" />
+            <remap from="odometry/filtered" to="pose" />
+
+        </node>
     </group>
 
 </launch>
