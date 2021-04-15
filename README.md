@@ -25,4 +25,5 @@ Built upon the work of these projects:
 - [@robopeak/rplidar_ros](https://github.com/robopeak/rplidar_ros) — ROS package for the RPLidar A1M8
 - [@IntelRealSense/librealsense](https://github.com/IntelRealSense/librealsense) — library for the Intel Realsense D455 camera
 - [@Knio/pynmea2](https://github.com/Knio/pynmea2) — python library for parsing NMEA 0183 strings
-- [@ccny-ros-pkg/imu_tools](https://github.com/ccny-ros-pkg/imu_tools) — ap madgwick filter on IMU data to get orientation quaternion
+- [@ccny-ros-pkg/imu_tools](https://github.com/ccny-ros-pkg/imu_tools) — apply madgwick filter on IMU data to get orientation quaternion
+- [@dpkoch/imu_calib](https://github.com/dpkoch/imu_calib) — IMU calibration

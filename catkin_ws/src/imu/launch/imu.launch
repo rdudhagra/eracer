@@ -1,14 +1,23 @@
 <launch>
-    <remap from="imu_raw_accel_gyro" to="imu/data_raw"/>
-    <remap from="imu_raw_mag" to="imu/mag"/>
+    <remap from="imu_raw_mag" to="imu/mag" />
 
-    <remap from="imu/data" to="data"/>
+    <remap from="imu/data" to="data" />
 
     <node name="imu_raw" pkg="imu" type="read_imu.py" respawn="true" />
     <!-- <include file="$(find imu_complementary_filter)/launch/complementary_filter.launch" >
         <param name="use_mag" type="bool" value="true"/>
     </include> -->
-    <include file="$(find imu_filter_madgwick)/launch/imu_filter_madgwick.launch" >
-        <param name="use_mag" type="bool" value="true"/>
-    </include>
+    <node pkg="imu_filter_madgwick" name="ahrs" type="imu_filter_node">
+        <param name="use_mag" type="bool" value="true" />
+        <param name="orientation_stddev" type="double" value="0.01" />
+        <param name="publish_tf" type="bool" value="false" />
+    </node>
+
+    <group ns="calib">
+        <remap from="raw" to="/imu/imu_raw_accel_gyro" />
+        <remap from="corrected" to="/imu/imu/data_raw" />
+        <node pkg="imu_calib" name="calib" type="apply_calib">
+            <param name="calib_file" type="string" value="$(find imu)/config/imu_calib.yaml" />
+        </node>
+    </group>
 </launch>

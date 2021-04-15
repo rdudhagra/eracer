@@ -1,5 +1,13 @@
 <launch>
 
+    <group ns="tf2_static_definitions">
+        <!-- x y z yaw pitch roll frame_id child_frame_id -->
+        <node pkg="tf2_ros" type="static_transform_publisher" name="imu_link_broadcaster" args="0.165 0 0 0 0 0 base_link imu_link" />
+        <node pkg="tf2_ros" type="static_transform_publisher" name="camera_link_broadcaster" args="0.203 0 0 0 0 0 base_link camera_link" />
+        <node pkg="tf2_ros" type="static_transform_publisher" name="gps_link_broadcaster" args="0 0.066 0 0 0 0 base_link gps_link" />
+        <node pkg="tf2_ros" type="static_transform_publisher" name="lidar_link_broadcaster" args="0 0 0.052 -1.570796 0 0 base_link lidar_link" />
+    </group>
+
     <group ns="rosbridge">
         <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
             <arg name="port" value="9090" />
@@ -7,17 +15,40 @@
     </group>
 
     <group ns="realsense">
+        <remap from="/realsense/camera/imu" to="/realsense/imu/data_raw" />
+
         <include file="$(find realsense2_camera)/launch/rs_camera.launch">
             <arg name="enable_accel" value="true" />
             <arg name="enable_gyro" value="true" />
             <arg name="enable_pointcloud" value="true" />
+            <arg name="align_depth" value="true" />
+            <arg name="linear_accel_cov" value="0.01" />
+            <arg name="unite_imu_method" value="linear_interpolation" />
+
+            <arg name="color_width" value="640" />
+            <arg name="color_height" value="360" />
+            <arg name="color_fps" value="90" />
+            <arg name="depth_width" value="640" />
+            <arg name="depth_height" value="360" />
+            <arg name="depth_fps" value="90" />
+
+            <arg name="gyro_fps" value="200" />
+            <arg name="accel_fps" value="63" />
         </include>
+
+        <node pkg="imu_filter_madgwick" name="ahrs" type="imu_filter_node">
+            <param name="use_mag" type="bool" value="false" />
+            <param name="orientation_stddev" type="double" value="0.01" />
+        </node>
     </group>
 
     <group ns="rplidar">
-        <include file="$(find rplidar_ros)/launch/rplidar.launch">
+        <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
             <param name="serial_port" type="string" value="/dev/ttyUSB0" />
-        </include>
+            <param name="frame_id" type="string" value="lidar_link" />
+            <param name="inverted" type="bool" value="false" />
+            <param name="angle_compensate" type="bool" value="true" />
+        </node>
     </group>
 
     <group ns="gps">
@@ -28,11 +59,32 @@
         <include file="$(find imu)/launch/imu.launch" />
     </group>
 
+
     <group ns="fusion">
-        <node pkg="robot_localization" type="ekf_localization_node" name="ekf_fusion_imu" clear_params="true">
-            <rosparam command="load" file="$(find eracer)/config/ekf_imu_config.yaml" />
+        <group ns="rgbd">
+            <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+                <arg name="args" value="--delete_db_on_start" />
+                <arg name="frame_id" value="base_link" />
+                <arg name="odom_frame_id" value="odom" />
+
+                <arg name="rgb_topic" value="/realsense/camera/color/image_raw" />
+                <arg name="depth_topic" value="/realsense/camera/aligned_depth_to_color/image_raw" />
+                <arg name="camera_info_topic" value="/realsense/camera/color/camera_info" />
+                <arg name="depth_camera_info_topic" value="/realsense/camera/depth/camera_info" />
+
+                <!-- <arg name="imu_topic" value="/realsense/imu/data" /> -->
+                <!-- <arg name="wait_imu_to_init" value="true" /> -->
+
+                <arg name="rtabmapviz" value="false" />
+                <arg name="rviz" value="false" />
+            </include>
+        </group>
+
+        <node pkg="robot_localization" type="ekf_localization_node" name="ukf_fusion" clear_params="true">
+            <rosparam command="load" file="$(find eracer)/config/ekf_config.yaml" />
             <remap from="odometry/filtered" to="pose" />
         </node>
+
         <node pkg="robot_localization" type="navsat_transform_node" name="ekf_fusion_gps" respawn="true">
 
             <param name="magnetic_declination_radians" value="0.244346" />

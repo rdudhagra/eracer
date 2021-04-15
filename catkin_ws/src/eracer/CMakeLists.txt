@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rosbridge_server
   realsense2_camera
   robot_localization
+  rtabmap_ros
   roscpp
   rospy
   std_msgs
