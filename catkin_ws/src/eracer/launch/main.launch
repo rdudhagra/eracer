@@ -1,9 +1,9 @@
 <launch>
-
     <group ns="tf2_static_definitions">
         <!-- x y z yaw pitch roll frame_id child_frame_id -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="imu_link_broadcaster" args="0.165 0 0 0 0 0 base_link imu_link" />
-        <node pkg="tf2_ros" type="static_transform_publisher" name="camera_link_broadcaster" args="0.203 0 0 0 0 0 base_link camera_link" />
+        <node pkg="tf2_ros" type="static_transform_publisher" name="d455_link_broadcaster" args="0.203 0 0 0 0 0 base_link d455_link" />
+        <node pkg="tf2_ros" type="static_transform_publisher" name="t265_link_broadcaster" args="0.203 0 -0.017 0 0 0 base_link t265_odom_frame" />
         <node pkg="tf2_ros" type="static_transform_publisher" name="gps_link_broadcaster" args="0 0.066 0 0 0 0 base_link gps_link" />
         <node pkg="tf2_ros" type="static_transform_publisher" name="lidar_link_broadcaster" args="0 0 0.052 -1.570796 0 0 base_link lidar_link" />
     </group>
@@ -15,31 +15,52 @@
     </group>
 
     <group ns="realsense">
-        <remap from="/realsense/camera/imu" to="/realsense/imu/data_raw" />
+        <group ns="d455">
+            <remap from="/realsense/d455/camera/imu" to="/realsense/d455/imu/data_raw" />
 
-        <include file="$(find realsense2_camera)/launch/rs_camera.launch">
-            <arg name="enable_accel" value="true" />
-            <arg name="enable_gyro" value="true" />
-            <arg name="enable_pointcloud" value="true" />
-            <arg name="align_depth" value="true" />
-            <arg name="linear_accel_cov" value="0.01" />
-            <arg name="unite_imu_method" value="linear_interpolation" />
+            <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+                <arg name="enable_accel" value="true" />
+                <arg name="enable_gyro" value="true" />
+                <arg name="enable_pointcloud" value="true" />
+                <arg name="align_depth" value="true" />
+                <arg name="linear_accel_cov" value="0.01" />
+                <arg name="unite_imu_method" value="linear_interpolation" />
 
-            <arg name="color_width" value="640" />
-            <arg name="color_height" value="360" />
-            <arg name="color_fps" value="90" />
-            <arg name="depth_width" value="640" />
-            <arg name="depth_height" value="360" />
-            <arg name="depth_fps" value="90" />
+                <arg name="color_width" value="640" />
+                <arg name="color_height" value="360" />
+                <arg name="color_fps" value="30" />
+                <arg name="depth_width" value="640" />
+                <arg name="depth_height" value="360" />
+                <arg name="depth_fps" value="30" />
 
-            <arg name="gyro_fps" value="200" />
-            <arg name="accel_fps" value="63" />
-        </include>
+                <arg name="gyro_fps" value="200" />
+                <arg name="accel_fps" value="63" />
 
-        <node pkg="imu_filter_madgwick" name="ahrs" type="imu_filter_node">
-            <param name="use_mag" type="bool" value="false" />
-            <param name="orientation_stddev" type="double" value="0.01" />
-        </node>
+                <arg name="tf_prefix" value="d455" />
+            </include>
+
+            <node pkg="imu_filter_madgwick" name="ahrs" type="imu_filter_node">
+                <param name="use_mag" type="bool" value="false" />
+                <param name="orientation_stddev" type="double" value="0.01" />
+            </node>
+        </group>
+
+        <group ns="t265">
+            <remap from="/realsense/d455/camera/imu" to="/realsense/d455/imu/data_raw" />
+
+            <include file="$(find realsense2_camera)/launch/rs_t265.launch">
+                <arg name="enable_accel" value="true" />
+                <arg name="enable_gyro" value="true" />
+                <arg name="enable_pose" value="true" />
+
+                <arg name="tf_prefix" value="t265" />
+            </include>
+
+            <node pkg="imu_filter_madgwick" name="ahrs" type="imu_filter_node">
+                <param name="use_mag" type="bool" value="false" />
+                <param name="orientation_stddev" type="double" value="0.01" />
+            </node>
+        </group>
     </group>
 
     <group ns="rplidar">
@@ -67,13 +88,13 @@
                 <arg name="frame_id" value="base_link" />
                 <arg name="odom_frame_id" value="odom" />
 
-                <arg name="rgb_topic" value="/realsense/camera/color/image_raw" />
-                <arg name="depth_topic" value="/realsense/camera/aligned_depth_to_color/image_raw" />
-                <arg name="camera_info_topic" value="/realsense/camera/color/camera_info" />
-                <arg name="depth_camera_info_topic" value="/realsense/camera/depth/camera_info" />
+                <arg name="rgb_topic" value="/realsense/d455/camera/color/image_raw" />
+                <arg name="depth_topic" value="/realsense/d455/camera/aligned_depth_to_color/image_raw" />
+                <arg name="camera_info_topic" value="/realsense/d455/camera/color/camera_info" />
+                <arg name="depth_camera_info_topic" value="/realsense/d455/camera/depth/camera_info" />
 
-                <!-- <arg name="imu_topic" value="/realsense/imu/data" /> -->
-                <!-- <arg name="wait_imu_to_init" value="true" /> -->
+                <arg name="imu_topic" value="/imu/data" />
+                <arg name="wait_imu_to_init" value="true" />
 
                 <arg name="rtabmapviz" value="false" />
                 <arg name="rviz" value="false" />

@@ -179,7 +179,7 @@ imu0_relative: true
 # this to true, and *make sure* your data conforms to REP-103, specifically, that the data is in ENU frame.
 imu0_remove_gravitational_acceleration: true
 
-imu1: /realsense/imu/data
+imu1: /realsense/d455/imu/data
 imu1_config: [false, false, false,
               true,  true,  true,
               false, false, false,
@@ -199,6 +199,16 @@ odom0_config: [true, true, true,
 odom0_differential: false
 odom0_relative: true
 odom0_nodelay: false
+
+odom1: /realsense/t265/camera/odom/sample
+odom1_config: [true, true, true,
+               true, true, true,
+               false, false, false,
+               false, false, true,
+               false, false, false]
+odom1_differential: false
+odom1_relative: true
+odom1_nodelay: false
 
 # odom1: /fusion/icp/rtabmap/odom
 # odom1_config: [true, true, true,

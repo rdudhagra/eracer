@@ -19,15 +19,15 @@ def talker():
     # sensor_am = adafruit_fxos8700.FXOS8700(i2c)
     # Optionally create the sensor with a different accelerometer range (the
     # default is 2G, but you can use 4G or 8G values):
-    sensor_am = adafruit_fxos8700.FXOS8700(i2c, accel_range=adafruit_fxos8700.ACCEL_RANGE_4G)
-    # sensor_am = adafruit_fxos8700.FXOS8700(i2c, accel_range=adafruit_fxos8700.ACCEL_RANGE_8G)
+    # sensor_am = adafruit_fxos8700.FXOS8700(i2c, accel_range=adafruit_fxos8700.ACCEL_RANGE_4G)
+    sensor_am = adafruit_fxos8700.FXOS8700(i2c, accel_range=adafruit_fxos8700.ACCEL_RANGE_8G)
 
     # sensor_g = adafruit_fxas21002c.FXAS21002C(i2c)
     # Optionally create the sensor with a different gyroscope range (the
     # default is 250 DPS, but you can use 500, 1000, or 2000 DPS values):
     # sensor_g = adafruit_fxas21002c.FXAS21002C(i2c, gyro_range=adafruit_fxas21002c.GYRO_RANGE_500DPS)
-    sensor_g = adafruit_fxas21002c.FXAS21002C(i2c, gyro_range=adafruit_fxas21002c.GYRO_RANGE_1000DPS)
-    # sensor_g = adafruit_fxas21002c.FXAS21002C(i2c, gyro_range=adafruit_fxas21002c.GYRO_RANGE_2000DPS)
+    # sensor_g = adafruit_fxas21002c.FXAS21002C(i2c, gyro_range=adafruit_fxas21002c.GYRO_RANGE_1000DPS)
+    sensor_g = adafruit_fxas21002c.FXAS21002C(i2c, gyro_range=adafruit_fxas21002c.GYRO_RANGE_2000DPS)
 
     pub = rospy.Publisher("imu_raw_accel_gyro", Imu, queue_size=1)
     pub_mag = rospy.Publisher("imu_raw_mag", MagneticField, queue_size=1)
