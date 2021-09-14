@@ -40,17 +40,17 @@
     "Plot!37h3el3": {
       "paths": [
         {
-          "value": "/realsense/camera/accel/sample.linear_acceleration.x",
+          "value": "/imu/data.linear_acceleration.x",
           "enabled": true,
           "timestampMethod": "receiveTime"
         },
         {
-          "value": "/realsense/camera/accel/sample.linear_acceleration.y",
+          "value": "/imu/data.linear_acceleration.y",
           "enabled": true,
           "timestampMethod": "receiveTime"
         },
         {
-          "value": "/realsense/camera/accel/sample.linear_acceleration.z",
+          "value": "/imu/data.linear_acceleration.z",
           "enabled": true,
           "timestampMethod": "receiveTime"
         }
@@ -79,25 +79,32 @@
         "t:/radar/range",
         "t:/radar/tracks",
         "t:/rosout",
-        "t:/tf",
         "t:/velodyne_nodelet_manager/bond",
         "t:/velodyne_packets",
         "t:/velodyne_points",
-        "t:/rplidar/scan",
-        "ns:/tf:laser"
+        "t:/tf",
+        "ns:/tf:base_link",
+        "ns:/tf:d455_link",
+        "ns:/tf:gps_link",
+        "ns:/tf:imu_link",
+        "ns:/tf:lidar_link",
+        "ns:/tf:map",
+        "ns:/tf:odom",
+        "ns:/tf:t265_link",
+        "t:/rplidar/scan"
       ],
       "expandedKeys": [
         "name:Topics",
         "t:/tf"
       ],
-      "followTf": "laser",
+      "followTf": "lidar_link",
       "cameraState": {
         "targetOffset": [
-          -0.17700311121555823,
-          0.3574672833466133,
+          -0.8393575860818242,
+          -0.008296226148590168,
           0
         ],
-        "distance": 10.834735440518655,
+        "distance": 15.62099983635312,
         "perspective": true,
         "phi": 0,
         "thetaOffset": -0.013308689317369346,
@@ -119,31 +126,31 @@
       "followOrientation": false
     },
     "ImageViewPanel!1nopgpr": {
-      "cameraTopic": "/realsense/camera/color/image_raw",
+      "cameraTopic": "/realsense/d455/camera/color/image_raw/compressed",
       "enabledMarkerTopics": [],
       "customMarkerTopicOptions": [],
       "scale": 0.2,
       "transformMarkers": true,
       "synchronize": false,
-      "mode": "fit",
+      "mode": "other",
       "zoomPercentage": 77.5,
       "offset": [
         0,
-        20.5
+        95
       ]
     },
     "ImageViewPanel!t22pit": {
-      "cameraTopic": "/realsense/camera/depth/image_rect_raw",
+      "cameraTopic": "/realsense/d455/camera/depth/image_rect_raw",
       "enabledMarkerTopics": [],
       "customMarkerTopicOptions": [],
       "scale": 0.2,
       "transformMarkers": false,
       "synchronize": false,
-      "mode": "fit",
+      "mode": "other",
       "zoomPercentage": 77.5,
       "offset": [
         0,
-        20.5
+        95
       ]
     }
   },
@@ -155,6 +162,6 @@
     "messageOrder": "receiveTime",
     "timeDisplayMethod": "ROS"
   },
-  "version": 16,
+  "version": 18,
   "skipSettingLocalStorage": false
 }
